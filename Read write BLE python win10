@@ -1,0 +1,40 @@
+from adafruit_ble import characteristics
+from adafruit_ble import BLERadio,BLEConnection
+sr = characteristics
+ble = BLERadio()
+blec=BLEConnection
+ofset=0
+
+def ble_search_connect(search):
+    for advertisement in ble.start_scan():
+        address = advertisement.address
+        name=advertisement.complete_name
+        if name.find('hmc') == 0:
+            print(name,address.string)
+            if (advertisement.connectable):
+                connection = ble.connect(advertisement,timeout=10)
+                if connection.connected:
+                    print('connected')
+                    return name,address
+'''
+def rw(address):  
+    sr._bleio.Characteristic.WRITE('led')          
+    dat = sr._bleio.Characteristic.READ
+    return dat
+'''
+def ble_disconnect(disc):
+    if ble.connected:
+        for c in ble.connections[0:1]:
+            c.disconnect()
+            print ('disconnected')
+                
+#-------------------------------------------
+if __name__=='__main__':
+    name,address = ble_search_connect(True)
+    
+    # dat = rw(address)
+    # print (dat)
+   
+    disc=True
+    ble_disconnect(disc)
+    
