@@ -12,3 +12,5 @@ read a 5 words (10 bytes) data - can't make it as well
 Disconnecting works good too
 Please help if you can
 Thank you
+
+
